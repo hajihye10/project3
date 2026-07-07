@@ -35,5 +35,5 @@
 -로그인에 성공한 경우,관리자 페이지에서 이력서 내용을 실시간 수정 하고 업데이트 
 
 Repository: 🔗 https://github.com/hajihye10/project3
-
+github:hajihye10
 
