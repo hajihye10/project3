@@ -1,0 +1,202 @@
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${resume.userName} + ' 정보통신 이력서'">하지혜 정보통신 이력서</title>
+    <!-- Tailwind CSS 로드 -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* 기본 폰트 설정 */
+        body {
+            font-family: 'Inter', 'Noto Sans KR', sans-serif;
+            background-color: #f4f4f9;
+        }
+
+        /* 메인 컨테이너 스타일 (사진과 유사한 그림자 제거 및 꽉 찬 느낌 부여) */
+        .resume-container {
+            max-width: 1000px;
+            min-height: 100vh;
+            margin: 0 auto;
+            display: flex; /* Flexbox로 좌/우 컬럼 구성 */
+            flex-direction: column; /* 모바일 대응: 컬럼 형태로 시작 */
+        }
+
+        /* 왼쪽 블랙 사이드바 스타일 */
+        .sidebar {
+            background-color: #1a1a1a;
+            color: #ffffff;
+            padding: 30px 20px;
+            flex-shrink: 0; /* 축소되지 않도록 설정 */
+        }
+
+        /* 오른쪽 메인 콘텐츠 스타일 */
+        .main-content {
+            background-color: #ffffff;
+            padding: 30px 40px;
+            flex-grow: 1;
+        }
+        
+        /* 스킬바 컨테이너 */
+        .skill-bar-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        /* 스킬바 (사진의 주황색/노란색 강조색 사용) */
+        .skill-bar {
+            height: 8px;
+            border-radius: 4px;
+            background-color: #333; /* 배경색은 어둡게 */
+            margin-left: 10px;
+            flex-grow: 1;
+        }
+
+        /* 스킬바 채우는 부분 (사진의 노란색 강조색) */
+        .skill-fill {
+            height: 100%;
+            background-color: #f5b041; /* 사진의 강조색과 유사하게 설정 */
+            border-radius: 4px;
+            /* === 특수 효과 추가: 부드러운 전환 === */
+            transition: all 0.3s ease-in-out;
+        }
+
+        /* === 특수 효과 추가: 스킬바 호버 효과 === */
+        .skill-bar-container:hover .skill-fill {
+            filter: brightness(1.15); /* 조금 더 밝게 빛나도록 */
+            box-shadow: 0 0 8px rgba(245, 176, 65, 0.8); /* 은은한 노란색 그림자 효과 */
+        }
+        
+        /* 데스크톱 레이아웃 (768px 이상) */
+        @media (min-width: 768px) {
+            .resume-container {
+                flex-direction: row;
+            }
+            .sidebar {
+                width: 300px; /* 고정 너비 */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="resume-container" th:object="${resume}">
+        
+        <!-- ============================================== -->
+        <!-- 좌측 블랙 사이드바 (LEFT SIDEBAR) -->
+        <!-- ============================================== -->
+        <div class="sidebar">
+
+            <!-- 1. 프로필 사진 Placeholder -->
+            <div class="w-40 h-40 bg-gray-600 rounded-full mx-auto mb-8 overflow-hidden border-4 border-gray-500">
+                <!-- <svg xmlns="http://www.w3.org/2000/svg" class="w-full h-full text-gray-400 p-4" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+                </svg> -->
+                <img th:src="@{/image/resumeImg.jpeg}" class="w-full h-full object-cover">
+            </div>
+
+            <!-- 2. 기본 정보 -->
+            <div class="text-center mb-10">
+                <h2 class="text-3xl font-bold mb-1" th:text="*{userName}">하지혜</h2>
+                <div class="text-sm mt-4 space-y-2 text-gray-300 text-left">
+                    <p>
+                        <span class="font-semibold text-gray-400">PHONE:</span>
+                        <span th:text="*{userPhone}">010-9556-4641</span>
+                    </p>
+                    <p>
+                        <span class="font-semibold text-gray-400">E-MAIL:</span>
+                        <span th:text="*{userEmail}">hajihye1212@naver.com</span>
+                    </p>
+                    <p>
+                        <span class="font-semibold text-gray-400">PORTFOLIO:</span>
+                        <a th:href="*{portfolioUrl}" target="_blank" class="text-blue-300 hover:text-yellow-400 text-xs" th:text="*{portfolioUrl}">http://localhost:8080/portfolio</a>
+                    </p>
+                </div>
+            </div>
+
+            <!-- 3. 핵심 스킬 -->
+            <div class="mb-10 pt-4 border-t border-gray-700">
+                <h3 class="text-lg font-semibold mb-4 text-yellow-500">핵심 기술 도메인</h3>
+                <!-- techSkills 필드를 줄바꿈 문자로 분리하여 각 기술을 표시 -->
+                <div class="skill-bar-container" th:each="skill : *{techSkills != null ? techSkills.split(',') : {}}">
+                    <span class="text-xs w-16" th:text="${skill}"></span>
+                    <div class="skill-bar">
+                        <!-- 80% 숙련도 가정 -->
+                        <div class="skill-fill" style="width: 60%;"></div>
+                    </div>
+                </div>
+            </div>
+            <!-- 4. 상세 역량 목록 (텍스트) --> 
+            <div class="pt-4 border-t border-gray-700">
+                <h3 class="text-lg font-semibold mb-4 text-yellow-500">주요 실습 및 역량</h3>
+                <ul class="text-xs space-y-2 list-disc list-inside text-gray-300">
+                    <li>네트워크 기초 이해 (OSI 7계층, TCP/IP)</li>
+                    <li>컴퓨터 구조 및 운영체제 기초</li>
+                    <li>데이터베이스 기초(SQL 기초 문법 이해)</li>
+                    <li>Arduino 사용 경험 (간단한 센서 제어 가능)</li>
+                    <li>네트워크 장비(스위치, 라우터) 기본 설정 이해</li>
+                    <li>회로 기초 실습 경험</li>
+                </ul>
+            </div>
+            
+        </div>
+
+        
+
+        <!-- ============================================== -->
+        <!-- 우측 화이트 메인 콘텐츠 (MAIN CONTENT) -->
+        <!-- ============================================== -->
+        <div class="main-content">
+            
+            <!-- 1. 메인 헤드라인 -->
+            <div class="mb-10 pb-2 border-b-4 border-yellow-400 inline-block">
+                <h1 class="text-4xl font-extrabold text-gray-800">
+                    정보통신 분야 신입 전문가
+                </h1>
+            </div>
+            
+            <p class="text-gray-600 leading-relaxed mb-10" th:text="*{selfIntro}">
+                자기소개 텍스트
+            </p>
+
+            <!-- 2. 학력 사항 -->
+            <div class="mb-10">
+                <h2 class="text-2xl font-bold text-gray-800 border-b border-gray-300 pb-2 mb-4">학력 사항</h2>
+                <div class="pl-4">
+                    <p class="text-base font-semibold text-gray-700" th:text="*{academicHist}">정보통신공학과 졸업</p>
+                </div>
+            </div>
+
+            <!-- 3. 경력 사항 -->
+            <div class="mb-10">
+                <h2 class="text-2xl font-bold text-gray-800 border-b border-gray-300 pb-2 mb-4">경력 사항</h2>
+                <div class="pl-4 space-y-3 text-gray-600">
+                     <p th:text="*{careerHist}">경력 사항 텍스트</p>
+                </div>
+            </div>
+
+            <!-- 4. 지원 분야/직무 -->
+            <div class="mb-10">
+                <h2 class="text-2xl font-bold text-gray-800 border-b border-gray-300 pb-2 mb-4">지원 포지션/관심 분야</h2>
+                <div class="pl-4 text-gray-600">
+                    <p class="text-lg font-semibold" th:text="*{appliedPosition}">백엔드 엔지니어 / 네트워크 관리 및 운영 직무</p>
+                </div>
+            </div>
+            <br>
+            <br>
+            <br>
+            <br>
+            <!-- "이력서 수정" 버튼 추가 -->
+            <div class="flex justify-end mb-4">
+                <a th:href="@{/admin}"
+                   class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-amber-500 hover:bg-amber-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 transform hover:scale-[1.01]">
+                    이력서 수정
+                </a>
+            </div>
+
+        </div>
+        
+    </div>
+
+</body>
+</html>

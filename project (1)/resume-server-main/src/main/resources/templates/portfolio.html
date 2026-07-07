@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My portfolio</title>
+    <!-- Tailwind CSS 로드 -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* 기본 폰트 설정 및 배경 */
+        body {
+            font-family: 'Inter', 'Noto Sans KR', sans-serif;
+            background-color: #f8fafc; /* 아주 연한 푸른빛 배경 */
+        }
+        /* 강조색 정의 */
+        .accent-blue {
+            background-color: #0c4a6e; /* 딥 시안 */
+        }
+        .text-accent-blue {
+            color: #0c4a6e;
+        }
+        /* 프로젝트 카드 스타일 */
+        .project-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid #e2e8f0;
+        }
+        .project-card:hover {
+            transform: translateY(-5px); /* 마우스를 올리면 살짝 위로 이동 */
+            box-shadow: 0 10px 20px rgba(12, 74, 110, 0.15); /* 은은한 그림자 */
+        }
+    </style>
+</head>
+<body class="p-4 sm:p-10">
+
+    <div class="max-w-6xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden">
+        
+        <!-- 헤더 및 소개 -->
+        <header class="accent-blue text-white p-8 sm:p-12">
+            <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight">
+                My portfolio
+            </h1>
+            <p class="mt-3 text-xl font-light opacity-90">
+                네트워크, IoT, 시스템 기초를 활용한 주요 프로젝트 및 실습
+            </p>
+        </header>
+
+        <!-- 메인 프로젝트 목록 -->
+        <main class="p-6 sm:p-10 grid gap-8 lg:grid-cols-2">
+
+            <!-- 1. 스마트 환경 모니터링 시스템 구축 -->
+            <div class="project-card bg-white rounded-xl overflow-hidden shadow-lg">
+                <div class="p-6">
+                    <span class="inline-block text-xs font-semibold py-1 px-3 rounded-full bg-blue-100 text-blue-700 mb-3">IoT & Database</span>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-3">스마트 환경 모니터링 시스템 구축</h3>
+                    <p class="text-gray-500 text-sm mb-4 italic">Arduino를 활용한 실시간 센서 데이터 수집 및 SQL 연동</p>
+                    
+                    <div class="border-t border-gray-200 pt-4 space-y-3">
+                        <p class="text-gray-700">
+                            **개요:** 온도/습도 센서 데이터를 Arduino로 수집하고, 이를 PC로 전송하여  데이터베이스에 저장 및 웹으로 모니터링하는 시스템을 구축했습니다.
+                        </p>
+                        
+                        <div class="bg-gray-50 p-3 rounded-lg">
+                            <h4 class="font-semibold text-accent-blue mb-1">핵심 기여 및 기술</h4>
+                            <ul class="list-disc list-inside text-sm text-gray-600 ml-4 space-y-0.5">
+                                <li>**하드웨어 인터페이스 설계:** Arduino와 센서 간의 통신 프로토콜 구현.</li>
+                                <li>**데이터베이스 구조화:** 센서 데이터를 효율적으로 저장 및 관리하기 위한 SQL Lite 스키마 설계.</li>
+                                <li>**SQL 활용:** 기초적인 `INSERT`, `SELECT` 구문을 활용하여 데이터 CRUD 기능 구현.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. 소규모 오피스 네트워크 토폴로지 설계 -->
+            <div class="project-card bg-white rounded-xl overflow-hidden shadow-lg">
+                <div class="p-6">
+                    <span class="inline-block text-xs font-semibold py-1 px-3 rounded-full bg-green-100 text-green-700 mb-3">Network & System</span>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-3">소규모 오피스 네트워크 토폴로지 설계 및 구현</h3>
+                    <p class="text-gray-500 text-sm mb-4 italic">라우터 및 스위치 장비를 이용한 실습 중심의 네트워크 구성</p>
+                    
+                    <div class="border-t border-gray-200 pt-4 space-y-3">
+                        <p class="text-gray-700">
+                            **개요:** 3개의 부서(총 50명 규모)를 위한 LAN 환경을 가상으로 설계하고, 네트워크 장비 기본 설정을 통해 통신 환경을 구축했습니다.
+                        </p>
+                        
+                        <div class="bg-gray-50 p-3 rounded-lg">
+                            <h4 class="font-semibold text-accent-blue mb-1">핵심 기여 및 기술</h4>
+                            <ul class="list-disc list-inside text-sm text-gray-600 ml-4 space-y-0.5">
+                                <li>**IP 주소 계획:** 효율적인 자원 분배를 위한 서브넷팅 실시 및 IP 대역 할당.</li>
+                                <li>**라우터/스위치 설정:** VLAN, Port Security, Static Routing 등 핵심 **네트워크 장비 기본 설정** 명령어 적용.</li>
+                                <li>**OSI 7계층 이해:** 각 계층별 프로토콜의 동작 원리를 실제 구성에 반영.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. 디지털 회로 및 컴퓨터 구조 기초 실습 -->
+            <div class="project-card bg-white rounded-xl overflow-hidden shadow-lg lg:col-span-2">
+                <div class="p-6">
+                    <span class="inline-block text-xs font-semibold py-1 px-3 rounded-full bg-purple-100 text-purple-700 mb-3">Circuit & OS Foundation</span>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-3">디지털 회로 및 컴퓨터 구조 기초 실습</h3>
+                    <p class="text-gray-500 text-sm mb-4 italic">하드웨어와 시스템 소프트웨어 기초 이해를 위한 실습 통합 프로젝트</p>
+                    
+                    <div class="border-t border-gray-200 pt-4 space-y-3 md:flex md:space-x-8">
+                        <div class="md:w-1/2">
+                            <h4 class="font-semibold text-accent-blue mb-2">회로 기초 실습</h4>
+                            <ul class="list-disc list-inside text-sm text-gray-600 ml-4 space-y-1">
+                                <li>기본 논리 게이트(AND, OR, NOT)를 활용하여 간단한 디지털 회로(가산기 등) 구성 및 작동 검증.</li>
+                                <li>반도체 소자의 기본 특성과 작동 원리에 대한 이해 심화.</li>
+                            </ul>
+                        </div>
+                        <div class="md:w-1/2">
+                            <h4 class="font-semibold text-accent-blue mb-2">컴퓨터 구조 및 운영체제 기초</h4>
+                            <ul class="list-disc list-inside text-sm text-gray-600 ml-4 space-y-1">
+                                <li>컴퓨터의 5대 구성 요소와 CPU 동작 원리 이해.</li>
+                                <li>운영체제의 역할, 특히 프로세스 관리 및 메모리 관리 개념 학습.</li>
+                                <li>간단한 스케줄링 알고리즘(FIFO, SJF)의 개념을 이해하고 시뮬레이션으로 구현 시도.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+
+        <!-- 푸터 -->
+        <footer class="text-center p-4 text-sm text-gray-500 border-t mt-8">
+            <p>본 포트폴리오는 하지혜 지원자의 정보통신공학 역량을 보여주기 위해 제작되었습니다.</p>
+        </footer>
+
+    </div>
+
+</body>
+</html>

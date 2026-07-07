@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>관리자페이지 </title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Inter 폰트 사용 */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7f7f7;
+        }
+    </style>
+</head>
+<body>
+
+<div id="app" class="min-h-screen p-4 sm:p-8">
+    <header class="text-center mb-8">
+        <h1 class="text-4xl font-bold text-gray-800">관리자페이지 </h1>
+        <p id="user-info" class="text-sm text-gray-600 mt-2">사용자 ID: </p>
+    </header>
+
+    <!-- 메인 컨텐츠 -->
+    <div id="main-content" class="max-w-4xl mx-auto">
+        
+        <!-- 1. 이력서 수정 영역 -->
+        <section class="bg-white p-6 rounded-xl shadow-lg border border-indigo-100">
+            <h2 class="text-2xl font-semibold mb-6 text-indigo-700 border-b pb-2 flex items-center">
+                <span class="mr-3 text-3xl">📄</span> 이력서 정보 수정
+            </h2>
+            
+            <form id="resume-form" th:action="@{/admin/update}" th:object="${resume}" method="post">
+                <!-- Hidden input for ID -->
+                <input type="hidden" th:field="*{id}" />
+
+                <!-- 개인 정보 -->
+                <h3 class="text-xl font-bold text-gray-800 mt-4 mb-3 border-l-4 border-indigo-500 pl-3">개인 정보</h3>
+                <div class="grid sm:grid-cols-2 gap-4 mb-6">
+                    <div>
+                        <label for="userName" class="block text-sm font-medium text-gray-700">이름</label>
+                        <input type="text" th:field="*{userName}" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-3 border">
+                    </div>
+                    <div>
+                        <label for="userPhone" class="block text-sm font-medium text-gray-700">연락처 (PHONE)</label>
+                        <input type="text" th:field="*{userPhone}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-3 border">
+                    </div>
+                    <div>
+                        <label for="userEmail" class="block text-sm font-medium text-gray-700">이메일 (E-MAIL)</label>
+                        <input type="email" th:field="*{userEmail}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-3 border">
+                    </div>
+                    <div>
+                        <label for="portfolioUrl" class="block text-sm font-medium text-gray-700">포트폴리오 (URL)</label>
+                        <input type="url" th:field="*{portfolioUrl}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-3 border">
+                    </div>
+                </div>
+
+                <!-- 핵심 요약 -->
+                <h3 class="text-xl font-bold text-gray-800 mt-6 mb-3 border-l-4 border-indigo-500 pl-3">핵심 요약 / 자기소개</h3>
+                <div class="mb-6">
+                    <label for="selfIntro" class="block text-sm font-medium text-gray-700"></label>
+                    <textarea th:field="*{selfIntro}" rows="4" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-3 border"></textarea>
+                </div>
+                
+                <!-- 핵심 기술 도메인 및 역량 -->
+                <h3 class="text-xl font-bold text-gray-800 mt-6 mb-3 border-l-4 border-indigo-500 pl-3">핵심 기술 도메인 및 주요 실습/역량</h3>
+                <div class="mb-6">
+                    <label for="techSkills" class="block text-sm font-medium text-gray-700">기술 목록 (쉼표로 구분)</label>
+                    <textarea th:field="*{techSkills}" rows="8" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-3 border"></textarea>
+                    <p class="text-xs text-gray-500 mt-1">쉼표(,)를 사용하여 항목을 구분해주세요. (예: Java,Spring Boot,Vue.js)</p>
+                </div>
+
+                <!-- 학력 사항 -->
+                <h3 class="text-xl font-bold text-gray-800 mt-6 mb-3 border-l-4 border-indigo-500 pl-3">학력 사항</h3>
+                <div class="mb-6">
+                    <label for="academicHist" class="block text-sm font-medium text-gray-700">학력 상세 내용</label>
+                    <textarea th:field="*{academicHist}" rows="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-3 border"></textarea>
+                </div>
+
+                <!-- 경력 사항 / 프로젝트 -->
+                <h3 class="text-xl font-bold text-gray-800 mt-6 mb-3 border-l-4 border-indigo-500 pl-3">경력 사항 / 주요 프로젝트</h3>
+                <div class="mb-6">
+                    <label for="careerHist" class="block text-sm font-medium text-gray-700">경력 및 프로젝트 상세 내용</label>
+                    <textarea th:field="*{careerHist}" rows="5" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-3 border"></textarea>
+                </div>
+
+                <!-- 지원 분야 -->
+                <h3 class="text-xl font-bold text-gray-800 mt-6 mb-3 border-l-4 border-indigo-500 pl-3">지원 포지션 / 관심 분야</h3>
+                <div class="mb-6">
+                    <label for="appliedPosition" class="block text-sm font-medium text-gray-700">지원 포지션 / 관심 분야</label>
+                    <textarea th:field="*{appliedPosition}" rows="2" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-3 border"></textarea>
+                </div>
+
+                <button type="submit" class="w-full bg-indigo-600 text-white py-3 px-4 rounded-lg hover:bg-indigo-700 transition duration-150 ease-in-out shadow-lg disabled:bg-indigo-400 mt-8">
+                    이력서 정보 저장하기
+                </button>
+            </form>
+            
+        </section>
+        
+    </div>
+</div>
+
+</body>
+</html>

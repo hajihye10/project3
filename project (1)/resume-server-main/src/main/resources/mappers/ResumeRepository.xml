@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.resume.repository.ResumeRepository">
+
+    <resultMap id="resumeResultMap" type="com.example.resume.dto.Resume">
+        <id property="id" column="id"/>
+        <result property="userName" column="userName"/>
+        <result property="userPhone" column="userPhone"/>
+        <result property="portfolioUrl" column="portfolioUrl"/>
+        <result property="userEmail" column="userEmail"/>
+        <result property="selfIntro" column="selfIntro"/>
+        <result property="techSkills" column="techSkills"/>
+        <result property="academicHist" column="academicHist"/>
+        <result property="careerHist" column="careerHist"/>
+        <result property="appliedPosition" column="appliedPosition"/>
+        <result property="createdUserId" column="createdUserId"/>
+        <result property="createdDttm" column="createdDttm"/>
+        <result property="updatedDttm" column="updatedDttm"/>
+    </resultMap>
+
+    <select id="findById" resultMap="resumeResultMap">
+        SELECT *
+        FROM RESUME
+        WHERE id = #{id}
+    </select>
+
+    <select id="findByUserName" resultMap="resumeResultMap">
+        SELECT * 
+        FROM RESUME
+        WHERE createdUserId = #{createdUserId}
+        ORDER BY createdDttm DESC
+        LIMIT 1
+    </select>
+
+    <select id="findAll" resultMap="resumeResultMap">
+        SELECT *
+        FROM RESUME
+    </select>
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO RESUME (
+            userName, userPhone, portfolioUrl, userEmail, selfIntro, 
+            techSkills, academicHist, careerHist, appliedPosition, createdUserId, 
+            createdDttm, updatedDttm
+        ) VALUES (
+            #{userName}, #{userPhone}, #{portfolioUrl}, #{userEmail}, #{selfIntro}, 
+            #{techSkills}, #{academicHist}, #{careerHist}, #{appliedPosition}, #{createdUserId}, 
+            NOW(), NOW()
+        )
+    </insert>
+
+    <update id="update">
+        UPDATE RESUME
+        SET 
+            userName = #{userName},
+            userPhone = #{userPhone},
+            portfolioUrl = #{portfolioUrl},
+            userEmail = #{userEmail},
+            selfIntro = #{selfIntro},
+            techSkills = #{techSkills},
+            academicHist = #{academicHist},
+            careerHist = #{careerHist},
+            appliedPosition = #{appliedPosition},
+            updatedDttm = NOW()
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM RESUME WHERE id = #{id}
+    </delete>
+
+</mapper>
