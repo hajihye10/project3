@@ -34,24 +34,7 @@
 
 -로그인에 성공한 경우,관리자 페이지에서 이력서 내용을 실시간 수정 하고 업데이트 
 
-Repository: 🔗 
+Repository: 🔗 https://github.com/hajihye10/project3
 
 
 
-1️⃣ [프로젝트명] - [한 줄 요약 프로젝트 설명]
-
-개발 기간: 202X.0X ~ 202X.0X (소속 또는 개인/팀 프로젝트 여부)
-
-소개: [프로젝트의 핵심 목표 및 주요 비즈니스 기능을 1~2문장으로 작성하세요.]
-
-기술 스택: Java, Spring Boot, MariaDB, Docker, Bootstrap
-
-주요 구현 역할:
-
-RESTful API 설계 및 데이터베이스 정규화 수행
-
-쿼리 최적화를 통한 데이터 조회 속도 XX% 향상
-
-Docker 컨테이너를 이용한 배포 파이프라인 구축
-
-Repository: 🔗 저장소 링크 이동
